@@ -1,0 +1,6 @@
+Flask
+werkzeug
+flask-talisman
+flask-limiter
+flask-session
+flask-wtf
