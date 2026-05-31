@@ -1,0 +1,658 @@
+:root {
+  --purple: #8b5cf6;
+  --purple-dark: #6d28d9;
+  --purple-soft: #f1ebff;
+  --purple-light: #faf7ff;
+
+  --blue-progress: #3b99fc;
+  --blue-progress-dark: #1677d8;
+  --blue-progress-soft: #eaf4ff;
+
+  --today-bg: #f5edff;
+  --card: #ffffff;
+  --border: #e8defc;
+  --text: #1f1b2e;
+  --muted: #7b7289;
+  --locked: #f2f2f5;
+  --locked-text: #8b8b96;
+  --shadow: 0 18px 40px rgba(109, 40, 217, 0.12);
+}
+
+.home-shell {
+  width: 100%;
+}
+
+.home-main-column {
+  width: 100%;
+  max-width: 980px;
+  margin: 0 auto;
+}
+
+/* ================= TODAY CARD ================= */
+
+.today-card {
+  position: relative;
+  display: grid;
+  grid-template-columns: minmax(0, 0.62fr) minmax(260px, 0.38fr);
+  gap: 36px;
+  background:
+    linear-gradient(135deg, rgba(247, 241, 255, 0.96), rgba(243, 234, 255, 0.96)),
+    url("/static/images/today-activity-bg.png");
+  background-size: cover;
+  background-position: center;
+  border: 1px solid var(--border);
+  border-radius: 32px;
+  padding: 30px;
+  color: var(--text);
+  box-shadow: var(--shadow);
+  overflow: hidden;
+  margin-bottom: 28px;
+}
+
+.today-card::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+}
+
+.today-copy {
+  position: relative;
+  z-index: 1;
+  max-width: 640px;
+}
+
+.today-pill {
+  display: inline-flex;
+  padding: 8px 13px;
+  background: #eadcff;
+  font-size: 13px;
+  font-weight: 800;
+  margin-bottom: 14px;
+}
+
+.today-copy h2 {
+  margin: 0 0 10px 0;
+  font-size: 34px;
+  line-height: 1.05;
+  font-weight: 900;
+  color: var(--text);
+}
+
+.today-copy p {
+  margin: 0;
+  max-width: 610px;
+  color: var(--muted);
+  font-size: 15px;
+  line-height: 1.55;
+}
+
+.today-meta-row {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  margin-top: 18px;
+}
+
+.today-meta-row span {
+  padding: 9px 13px;
+  border-radius: 999px;
+  background: #eadcff;
+  color: var(--text);
+  font-size: 13px;
+  font-weight: 800;
+  display: inline-flex;
+  align-items: center;
+  gap: 7px;
+}
+
+.today-meta-row strong {
+  color: var(--purple-dark);
+  font-size: 15px;
+  line-height: 1;
+}
+
+.today-visual {
+  position: relative;
+  z-index: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.today-character {
+  max-width: 210px;
+  height: auto;
+  filter: drop-shadow(0 18px 28px rgba(109, 40, 217, 0.2));
+}
+
+.today-mascot {
+  width: 150px;
+  height: 150px;
+  border-radius: 34px;
+  background: #ffffff;
+  color: var(--purple);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 72px;
+  box-shadow: 0 18px 34px rgba(109, 40, 217, 0.12);
+}
+
+.start-activity-btn {
+  grid-column: 1 / -1;
+  width: 100%;
+  text-decoration: none;
+  background: var(--purple);
+  color: #ffffff;
+  font-weight: 900;
+  padding: 17px 22px;
+  border-radius: 18px;
+  box-shadow: 0 6px 0 var(--purple-dark);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 12px;
+  margin-top: 8px;
+  transition: 0.18s ease;
+  transform: translateY(-2px);
+}
+
+.start-activity-btn:hover {
+  transform: translateY(0px);
+  box-shadow: 0 8px 0 var(--purple-dark);
+}
+
+.start-activity-btn:active {
+  transform: translateY(3px);
+  box-shadow: 0 3px 0 var(--purple-dark);
+}
+
+.play-circle {
+  width: 30px;
+  height: 30px;
+  border-radius: 50%;
+  background: #ffffff;
+  color: var(--purple-dark);
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 12px;
+  flex-shrink: 0;
+}
+
+/* blue today card for activities 4–6 */
+
+.today-card.today-blue {
+  background:
+    linear-gradient(135deg, rgba(235, 244, 255, 0.96), rgba(220, 236, 255, 0.96)),
+    url("/static/images/today-activity-bg.png");
+  background-size: cover;
+  background-position: center;
+  box-shadow: 0 18px 40px rgba(59, 153, 252, 0.12);
+}
+
+.today-card.today-blue .today-pill {
+  background: #eaf4ff;
+  color: var(--blue-progress);
+}
+
+.today-card.today-blue .today-meta-row span {
+  background: #dce8ff;
+  color: var(--text);
+}
+
+.today-card.today-blue .today-meta-row strong {
+  color: var(--blue-progress);
+}
+
+.today-card.today-blue .start-activity-btn {
+  background: var(--blue-progress);
+  box-shadow: 0 6px 0 var(--blue-progress-dark);
+}
+
+.today-card.today-blue .start-activity-btn:hover {
+  box-shadow: 0 8px 0 var(--blue-progress-dark);
+}
+
+.today-card.today-blue .start-activity-btn:active {
+  box-shadow: 0 3px 0 var(--blue-progress-dark);
+}
+
+.today-card.today-blue .play-circle {
+  color: var(--blue-progress-dark);
+}
+
+.today-card.today-blue .today-character {
+  filter: drop-shadow(0 18px 28px rgba(59, 153, 252, 0.2));
+}
+
+/* ================= JOURNEY SECTION ================= */
+
+.journey-section {
+  margin-top: 28px;
+}
+
+.section-header-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 18px;
+}
+
+.section-header-row h2 {
+  margin: 0;
+  font-size: 24px;
+  color: var(--text);
+}
+
+.section-header-row a {
+  color: var(--purple);
+  text-decoration: none;
+  font-weight: 800;
+  font-size: 14px;
+}
+
+.journey-list {
+  display: flex;
+  flex-direction: column;
+  gap: 18px;
+}
+
+.journey-row {
+  display: grid;
+  grid-template-columns: 48px minmax(0, 1fr);
+  gap: 16px;
+  align-items: center;
+  position: relative;
+}
+
+/* lines hidden by default */
+.journey-row::before,
+.journey-row::after {
+  content: "";
+  position: absolute;
+  left: 23px;
+  width: 4px;
+  height: calc(50% + 18px);
+  border-radius: 999px;
+  opacity: 0;
+  z-index: 0;
+  box-shadow: none;
+  background: transparent;
+}
+
+/* line above number */
+.journey-row::before {
+  bottom: 50%;
+}
+
+/* line below number */
+.journey-row::after {
+  top: 50%;
+}
+
+/* show lines only when unlocked */
+/* show lines only when unlocked */
+.journey-row.line-unlocked::before,
+.journey-row.line-unlocked::after {
+  opacity: 1;
+}
+
+/* first activity should show the line below by default */
+.journey-row:first-child::after {
+  opacity: 1;
+}
+
+/* no top line for first activity */
+.journey-row:first-child::before {
+  opacity: 0;
+}
+
+/* no top line for first activity */
+.journey-row:first-child::before {
+  opacity: 0;
+}
+
+/* no bottom line for last activity */
+.journey-row:last-child::after {
+  opacity: 0;
+}
+
+/* purple lines for activities 1–3 */
+.journey-row:nth-child(-n + 3).line-unlocked::before,
+.journey-row:nth-child(-n + 3).line-unlocked::after {
+  background: var(--purple);
+  box-shadow: 0 0 14px rgba(139, 92, 246, 0.35);
+}
+
+/* blue lines for activities 4–6 */
+.journey-row:nth-child(n + 4):nth-child(-n + 6).line-unlocked::before,
+.journey-row:nth-child(n + 4):nth-child(-n + 6).line-unlocked::after {
+  background: var(--blue-progress);
+  box-shadow: 0 0 14px rgba(59, 153, 252, 0.35);
+}
+
+.journey-step {
+  width: 48px;
+  height: 48px;
+  border-radius: 50%;
+  background: var(--purple-soft);
+  color: var(--purple);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: 900;
+  border: 3px solid transparent;
+  box-shadow: 0 8px 18px rgba(139, 92, 246, 0.14);
+  position: relative;
+  z-index: 2;
+}
+
+/* mask so lines never visibly overlap behind circles */
+.journey-step::before {
+  content: "";
+  position: absolute;
+  inset: -8px;
+  border-radius: 50%;
+  background: #ffffff;
+  z-index: -2;
+}
+
+/* blue circles for activities 4–6 */
+.journey-row:nth-child(n + 4):nth-child(-n + 6) .journey-step {
+  background: var(--blue-progress-soft);
+  color: var(--blue-progress);
+  box-shadow: 0 8px 18px rgba(59, 153, 252, 0.14);
+}
+
+.journey-card {
+  min-width: 0;
+  display: grid;
+  grid-template-columns: 58px minmax(0, 1fr) auto;
+  gap: 16px;
+  align-items: center;
+  background: var(--card);
+  border: 1px solid var(--border);
+  border-radius: 26px;
+  padding: 18px;
+  box-shadow: 0 12px 26px rgba(56, 91, 155, 0.07);
+}
+
+.journey-current .journey-card {
+  border: 2px solid var(--purple);
+  box-shadow: 0 16px 30px rgba(139, 92, 246, 0.16);
+}
+
+/* blue selected card for activities 4–6 */
+.journey-row:nth-child(n + 4):nth-child(-n + 6).journey-current .journey-card {
+  border: 2px solid var(--blue-progress);
+  box-shadow: 0 16px 30px rgba(59, 153, 252, 0.16);
+}
+
+.journey-locked {
+  opacity: 0.72;
+}
+
+.journey-locked .journey-card {
+  background: #f8f8fb;
+  border-color: #e5e5ec;
+  box-shadow: none;
+}
+
+.journey-locked .journey-step {
+  background: var(--locked);
+  color: var(--locked-text);
+  box-shadow: none;
+}
+
+.journey-locked .journey-step::before {
+  background: #ffffff;
+}
+
+.journey-icon {
+  width: 58px;
+  height: 58px;
+  border-radius: 20px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 28px;
+}
+
+.journey-icon img {
+  width: 46px;
+  height: 46px;
+  object-fit: contain;
+  display: block;
+}
+
+.journey-locked .journey-icon {
+  background: #ececf2;
+  filter: grayscale(1);
+}
+
+.journey-text h3 {
+  margin: 0 0 4px 0;
+  color: var(--text);
+  font-size: 18px;
+}
+
+.journey-text p {
+  margin: 0;
+  color: var(--muted);
+  font-size: 14px;
+  line-height: 1.4;
+}
+
+.journey-locked .journey-text h3,
+.journey-locked .journey-text p {
+  color: var(--locked-text);
+}
+
+/* ================= JOURNEY BUTTONS ================= */
+
+.journey-action-btn,
+.journey-current-pill,
+.journey-lock-pill {
+  border: none;
+  text-decoration: none;
+  white-space: nowrap;
+  padding: 11px 14px;
+  border-radius: 15px;
+  font-weight: 900;
+  font-size: 12px;
+  cursor: pointer;
+  transition: 0.18s ease;
+}
+
+.journey-current-pill {
+  background: var(--purple);
+  color: white;
+  box-shadow: 0 4px 0 var(--purple-dark);
+}
+
+.journey-action-btn {
+  background: var(--purple-soft);
+  color: var(--purple-dark);
+  box-shadow: 0 4px 0 #ddd0fb;
+}
+
+.journey-lock-pill {
+  background: #eeeef3;
+  color: #777783;
+  box-shadow: 0 4px 0 #d8d8e0;
+}
+
+/* blue buttons for activities 4–6 */
+.journey-row:nth-child(n + 4):nth-child(-n + 6) .journey-action-btn {
+  background: var(--blue-progress-soft);
+  color: var(--blue-progress-dark);
+  box-shadow: 0 4px 0 #c9e3ff;
+}
+
+.journey-row:nth-child(n + 4):nth-child(-n + 6) .journey-current-pill {
+  background: var(--blue-progress);
+  color: white;
+  box-shadow: 0 4px 0 var(--blue-progress-dark);
+}
+
+.journey-action-btn:hover,
+.journey-current-pill:hover,
+.journey-lock-pill:hover {
+  transform: translateY(-2px);
+}
+
+.journey-action-btn:active,
+.journey-current-pill:active,
+.journey-lock-pill:active {
+  transform: translateY(2px);
+  box-shadow: none;
+}
+
+/* ================= RESPONSIVE ================= */
+
+@media (max-width: 760px) {
+  .today-card {
+    grid-template-columns: 1fr;
+  }
+
+  .today-visual {
+    justify-content: flex-start;
+  }
+
+  .journey-card {
+    grid-template-columns: 48px minmax(0, 1fr);
+  }
+
+  .journey-action {
+    grid-column: 1 / -1;
+  }
+
+  .journey-action-btn,
+  .journey-current-pill,
+  .journey-lock-pill {
+    width: 100%;
+    display: flex;
+    justify-content: center;
+  }
+}
+
+/* ================= FINAL PATCH ================= */
+
+/* 1. Remove borders from Today card meta pills */
+
+.today-card.today-blue, .today-meta-row span {
+  border: none;
+}
+
+/* 2. First activity gets a bottom line */
+.journey-row:first-child::after {
+  opacity: 1;
+  background: var(--purple);
+  box-shadow: 0 0 14px rgba(139, 92, 246, 0.35);
+}
+
+/* 3. Unlocked number circles get matching borders */
+.journey-row:nth-child(-n + 3).line-unlocked .journey-step,
+.journey-row:first-child .journey-step {
+  border-color: var(--purple);
+}
+
+.journey-row:nth-child(n + 4):nth-child(-n + 6).line-unlocked .journey-step {
+  border-color: var(--blue-progress);
+}
+
+.unlock-modal-overlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(31, 27, 46, 0.35);
+  display: none;
+  align-items: center;
+  justify-content: center;
+  z-index: 999;
+  padding: 24px;
+}
+
+.unlock-modal-overlay.active {
+  display: flex;
+}
+
+.unlock-modal {
+  width: 100%;
+  max-width: 520px;
+  background: #ffffff;
+  border-radius: 28px;
+  padding: 28px;
+  box-shadow: 0 24px 60px rgba(31, 27, 46, 0.2);
+}
+
+.unlock-modal h2 {
+  margin: 0 0 8px 0;
+  font-size: 26px;
+  color: var(--text);
+}
+
+.unlock-modal-subtitle {
+  margin: 0 0 20px 0;
+  color: var(--muted);
+  font-size: 15px;
+  line-height: 1.5;
+}
+
+.unlock-checklist {
+  display: flex;
+  flex-direction: column;
+  gap: 13px;
+}
+
+.unlock-checklist label {
+  display: flex;
+  gap: 12px;
+  align-items: flex-start;
+  background: var(--purple-light);
+  border: 1px solid var(--border);
+  border-radius: 18px;
+  padding: 14px;
+  color: var(--text);
+  font-weight: 700;
+  line-height: 1.4;
+}
+
+.unlock-checklist input {
+  margin-top: 3px;
+  width: 18px;
+  height: 18px;
+  accent-color: var(--purple);
+}
+
+.unlock-modal-actions {
+  display: flex;
+  gap: 12px;
+  margin-top: 22px;
+}
+
+.unlock-cancel-btn,
+.unlock-confirm-btn {
+  flex: 1;
+  border: none;
+  border-radius: 16px;
+  padding: 14px 18px;
+  font-weight: 900;
+  cursor: pointer;
+}
+
+.unlock-cancel-btn {
+  background: #eeeef3;
+  color: #777783;
+}
+
+.unlock-confirm-btn {
+  background: var(--purple);
+  color: white;
+}
+
+.unlock-confirm-btn:disabled {
+  opacity: 0.45;
+  cursor: not-allowed;
+}

@@ -1,0 +1,171 @@
+{% extends "dashboard_layout.html" %}
+
+{% block head %}
+{{ super() }}
+<link rel="stylesheet" href="{{ url_for('static', filename='css/dashboard.css') }}?v=7">
+{% endblock %}
+
+{% block title %}Home{% endblock %}
+
+{% block dashboard_content %}
+
+{% set ns = namespace(current_activity=none) %}
+
+{% for activity in activities %}
+  {% if activity.activity_id == current_activity_id %}
+    {% set ns.current_activity = activity %}
+  {% endif %}
+{% endfor %}
+
+{% if not ns.current_activity and activities|length > 0 %}
+  {% set ns.current_activity = activities[0] %}
+{% endif %}
+
+<div class="home-shell">
+  <section class="home-main-column">
+
+    {% if ns.current_activity %}
+    <section class="today-card {% if ns.current_activity.activity_order >= 4 %}today-blue{% endif %}">
+      <div class="today-copy">
+        <span class="today-pill">Today’s Activity</span>
+
+        <h2>{{ ns.current_activity.activity_name.replace('_', ' ').title() }}</h2>
+
+        <p>
+          {{ ns.current_activity.description if ns.current_activity.description else "Start today’s speaking practice activity." }}
+        </p>
+
+        <div class="today-meta-row">
+            <span><strong>📊</strong> Level {{ ns.current_activity.level_of_realism or 1 }} of {{ ns.current_activity.total_levels_of_realism or 1 }}</span>
+            <span><strong>🕒</strong> {{ ns.current_activity.time_recommended or 30 }} min</span>
+            <span><strong>👥</strong> With Parent</span>
+        </div>
+      </div>
+
+      <div class="today-visual">
+        {% if ns.current_activity.character_active %}
+          <img
+            src="{{ url_for('static', filename='images/' + ns.current_activity.character_active|lower + '35.png') }}"
+            alt="{{ ns.current_activity.character_active }}"
+            class="today-character">
+        {% else %}
+          <div class="today-mascot">★</div>
+        {% endif %}
+      </div>
+
+      <a
+        href="{{ url_for('open_activity', activity_id=ns.current_activity.activity_id) }}"
+        class="start-activity-btn">
+        <span class="play-circle">▶</span>
+        Start Activity
+      </a>
+    </section>
+    {% endif %}
+
+    <section class="journey-section">
+      <div class="section-header-row">
+        <h2>Your Journey</h2>
+        <a href="{{ url_for('lessons') }}">View all activities</a>
+      </div>
+
+      <div class="journey-list">
+        {% for activity in activities %}
+        <div class="journey-row 
+          {% if not activity.is_unlocked %}journey-locked{% endif %}
+          {% if activity.activity_id == current_activity_id %}journey-current{% endif %}
+          {% if not loop.first and activity.is_unlocked %}line-unlocked{% endif %}
+        ">          
+          <div class="journey-step">
+            <span>{{ loop.index }}</span>
+          </div>
+
+          <div class="journey-card">
+            <div class="journey-icon">
+              <img
+                src="{{ url_for('static', filename='images/' + activity.activity_name + '.png') }}"
+                alt="{{ activity.activity_name.replace('_', ' ').title() }}"
+              >
+            </div>
+
+            <div class="journey-text">
+              <h3>{{ activity.activity_name.replace('_', ' ').title() }}</h3>
+              <p>
+                {{ activity.description if activity.description else "Practice speaking in a guided activity." }}
+              </p>
+            </div>
+
+            <div class="journey-action">
+              {% if activity.activity_id == current_activity_id %}
+                <a
+                  href="{{ url_for('open_activity', activity_id=activity.activity_id) }}"
+                  class="journey-current-pill">
+                  Current
+                </a>
+              {% elif activity.is_unlocked %}
+                <button
+                  class="journey-action-btn activity-action-btn"
+                  type="button"
+                  data-action="set-current"
+                  data-activity-id="{{ activity.activity_id }}">
+                  Set Current
+                </button>
+              {% else %}
+                <button
+                  class="journey-lock-pill activity-action-btn"
+                  type="button"
+                  data-action="unlock"
+                  data-activity-id="{{ activity.activity_id }}"
+                  data-activity-name="{{ activity.activity_name.replace('_', ' ').title() }}"
+                  data-character="{{ activity.character_active or 'the character' }}"
+                  data-time="{{ activity.time_recommended or 30 }}">
+                  Unlock
+                </button>
+              {% endif %}
+            </div>
+          </div>
+        </div>
+        {% endfor %}
+      </div>
+    </section>
+
+  </section>
+</div>
+
+<div class="unlock-modal-overlay" id="unlockModal">
+  <div class="unlock-modal">
+    <h2 id="unlockModalTitle">Ready to unlock?</h2>
+
+    <p class="unlock-modal-subtitle">
+      Before unlocking this activity, make sure your child is ready for the next step.
+    </p>
+
+    <div class="unlock-checklist">
+      <label>
+        <input type="checkbox" class="unlock-check">
+        <span id="characterCheckText"></span>
+      </label>
+
+      <label>
+        <input type="checkbox" class="unlock-check">
+        <span id="activityCheckText"></span>
+      </label>
+
+      <label>
+        <input type="checkbox" class="unlock-check">
+        <span id="timeCheckText"></span>
+      </label>
+    </div>
+
+    <div class="unlock-modal-actions">
+      <button type="button" id="cancelUnlockBtn" class="unlock-cancel-btn">
+        Cancel
+      </button>
+
+      <button type="button" id="confirmUnlockBtn" class="unlock-confirm-btn" disabled>
+        Unlock Activity
+      </button>
+    </div>
+  </div>
+</div>
+
+{% endblock %}

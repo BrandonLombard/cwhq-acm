@@ -1,0 +1,103 @@
+{% extends "base.html" %}
+
+{% block title %}BraveSprouts Login{% endblock %}
+
+{% block head %}
+<link href="https://fonts.googleapis.com/css2?family=Lato:wght@300;400;700;900&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="{{ url_for('static', filename='css/login.css') }}">
+{% endblock %}
+
+{% block content %}
+<div class="page">
+  <header class="topbar">
+    <img src="{{ url_for('static', filename='images/logo_v2.png') }}" class="logo">
+    <a href="/" class="back-home">← Back to Home</a>
+  </header>
+
+  <main class="login-layout">
+    <section class="login-card">
+      <h1>Welcome back!</h1>
+      <p class="subtitle">Continue your child’s journey with BraveSprouts</p>
+
+      <form class="login-form" method="POST" id="loginForm">
+        <input type="hidden" name="csrf_token" value="{{ csrf_token() }}">
+        
+        {% if error %}
+          <div class="error-message">
+            {{ error }}
+          </div>
+        {% endif %}
+
+        <div class="input-group">
+          <img src="{{ url_for('static', filename='images/emailiconblue.svg') }}" class="input-icon">
+          <input
+            type="email"
+            name="email"
+            id="email"
+            placeholder="Email address"
+            autocomplete="email"
+          />
+        </div>
+
+        <div class="input-group">
+          <img src="{{ url_for('static', filename='images/lockiconblue.svg') }}" class="input-icon">
+
+          <input
+            type="password"
+            name="password"
+            id="password"
+            placeholder="Password"
+            autocomplete="current-password"
+          >
+
+          <button
+            type="button"
+            class="password-toggle-btn"
+            id="togglePassword"
+            aria-label="Show password"
+          >
+            <img
+              src="{{ url_for('static', filename='images/eye-closed.png') }}"
+              class="password-toggle"
+              id="togglePasswordIcon"
+              alt="Show password"
+              data-eye-open="{{ url_for('static', filename='images/eye-opened.png') }}"
+              data-eye-closed="{{ url_for('static', filename='images/eye-closed.png') }}"
+            >
+          </button>
+        </div>
+
+        <div class="form-row">
+          <label class="remember-me" for="rememberMe">
+            <input type="checkbox" id="rememberMe" />
+            <span>Remember me</span>
+          </label>
+
+          <a href="#" class="forgot-link">Forgot password?</a>
+        </div>
+
+        <div class="login-buttons">
+          <button type="submit" class="login-btn">LOG IN ⌯⌲</button>
+        </div>
+      </form>
+
+      <div class="signup-row">
+        <span>Don’t have an account?</span>
+        <a href="/signup">Get started →</a>
+      </div>
+    </section>
+
+    <section class="illustration-area">
+      <div class="bg-circle big"></div>
+      <div class="bg-circle small"></div>
+      <div class="bg-blob"></div>
+      <div class="sparkle sparkle-1">✦</div>
+      <div class="sparkle sparkle-2">✦</div>
+
+      <img src="{{ url_for('static', filename='images/anim_v4.gif') }}" class="image-placeholder">
+    </section>
+  </main>
+</div>
+
+<script src="{{ url_for('static', filename='js/login.js') }}"></script>
+{% endblock %}
