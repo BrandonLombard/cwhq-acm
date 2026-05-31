@@ -17,7 +17,6 @@ from flask import jsonify
 
 import os
 
-
 app = Flask(__name__)
 
 debug_mode = os.environ.get("FLASK_DEBUG") == "1"
